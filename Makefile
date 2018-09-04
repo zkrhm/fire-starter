@@ -1,4 +1,8 @@
-PACKAGE  = hellogopher
+APP_NAME = fire-starter
+SHORT_DESC = application boiler plate 
+LONG_DESC = write your decription here...
+USER = zkrhm
+PACKAGE  = github.com/$(USER)/$(APP_NAME)
 DATE    ?= $(shell date +%FT%T%z)
 VERSION ?= $(shell git describe --tags --always --dirty --match=v* 2> /dev/null || \
 			cat $(CURDIR)/.version 2> /dev/null || echo v0)
@@ -14,15 +18,27 @@ V = 0
 Q = $(if $(filter 1,$V),,@)
 M = $(shell printf "\033[34;1m▶\033[0m")
 
+DOCKER = docker
+
 export GO111MODULE=on
 
 .PHONY: all
 all: fmt lint $(BIN) ; $(info $(M) building executable…) @ ## Build program binary
 	$Q $(GO) build \
 		-tags release \
-		-ldflags '-X $(PACKAGE)/cmd.Version=$(VERSION) -X $(PACKAGE)/cmd.BuildDate=$(DATE)' \
+		-ldflags '-X $(PACKAGE)/cmd.Version=$(VERSION) -X $(PACKAGE)/cmd.BuildDate=$(DATE) -X $(PACKAGE)/cmd.AppName=$(APP_NAME)' \
 		-o $(BIN)/$(PACKAGE) main.go
 
+.PHONY: install
+install: ; $(info $(M) installing executable…) @ ## do go install
+	$Q $(GO) install -i \
+		-tags release \
+		-ldflags '-X $(PACKAGE)/cmd.Version=$(VERSION) -X $(PACKAGE)/cmd.BuildDate=$(DATE) -X $(PACKAGE)/cmd.AppName=$(APP_NAME)' \
+		.
+
+.PHONY: docker-build
+docker-build: ; $(info $(M) building docker container... ) @ #docker build..!!!
+	$Q $(DOCKER) build -t $(USER)/$(APP_NAME):$(VERSION) --build-arg package_name=$(PACKAGE) --build-arg app_name=$(APP_NAME) .
 # Tools
 
 $(BIN):

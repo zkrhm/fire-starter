@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"hellogopher/cmd"
+	"github.com/zkrhm/fire-starter/cmd"
 )
 
 func main() {

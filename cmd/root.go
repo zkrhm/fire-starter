@@ -5,10 +5,17 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// AppName: blablabla
+var (
+	AppName   = "fire-starter"
+	ShortDesc = "Application Boiler Plate"
+	LongDesc  = `Please Add Description to your app config`
+)
+
 // RootCmd is the root for all hello commands.
 var RootCmd = &cobra.Command{
-	Use:           "hellogopher",
-	Short:         "Say hello",
-	Long:          `Currently, just say hello.`,
+	Use:           AppName,
+	Short:         ShortDesc,
+	Long:          LongDesc,
 	SilenceErrors: true,
 }
