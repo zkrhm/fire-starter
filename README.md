@@ -36,9 +36,10 @@ Version is extracted from git tags using anything prefixed by `v`.
 ## Usage
 
 The following commands are available:
-
+ 
  - `make help` to get help
  - `make` to build the binary (in `bin/`)
+ - `make build-docker` build the docker image
  - `make test` to run tests
  - `make test-verbose` to run tests in verbose mode
  - `make test-race` for race tests

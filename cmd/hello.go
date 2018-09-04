@@ -4,7 +4,6 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-
 	"github.com/zkrhm/fire-starter/hello"
 )
 
