@@ -5,4 +5,4 @@ go:
   - master
 script:
   - make tests
-  - make && ./bin/hellogopher hello
+  - make && ./bin/github.com/zkrhm/fire-starter hello

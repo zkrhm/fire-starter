@@ -1,7 +1,7 @@
-FROM golang:1.10.4
+FROM zkrhm/golang:1.10.4-alpine
 
-ARG app_name=the-app
-ARG package_name="any package"
+ARG app_name
+ARG package_name
 
 ENV APP_NAME=${app_name}
 ENV PACKAGE=${package_name}
@@ -12,12 +12,9 @@ WORKDIR $GOPATH/src/$PACKAGE/
 COPY . .
 COPY Gopkg.toml Gopkg.lock ./
 
-RUN apt-get install curl
-RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-
 RUN dep ensure -vendor-only
 
 RUN make install
-ENTRYPOINT [ $APP_NAME ]
+ENTRYPOINT [ ${app_name} ]
 
 # EXPOSE 8000
